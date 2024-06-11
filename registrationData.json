@@ -1,8 +1,8 @@
 {
     "country": "Brasil",
     "password": "123",
-    "nome": "bruno",
-    "email": "bruno",
+    "nome": "Teste",
+    "email": "teste",
     "isDeveloper": false,
     "agreedToTerms": true
 }

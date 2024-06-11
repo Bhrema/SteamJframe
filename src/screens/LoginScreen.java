@@ -1,6 +1,11 @@
 package screens;
 
+import classes.Biblioteca;
+import classes.CarrinhoDeCompras;
+import classes.Jogador;
+import classes.Usuario;
 import org.json.JSONObject;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +46,12 @@ public class LoginScreen extends JFrame {
                 try {
                     if (validateCredentials(emailField.getText(), new String(passwordField.getPassword()))) {
                         JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
-                        new GameShowcase().setVisible(true);
+                        Usuario usuarioLogado = obterUsuarioLogado(emailField.getText());
+                        if (usuarioLogado != null) {
+                            new GameShowcase(usuarioLogado).setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Usuário não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Email ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
@@ -77,6 +87,21 @@ public class LoginScreen extends JFrame {
         String storedPassword = jsonObject.getString("password");
 
         return email.equals(storedEmail) && password.equals(storedPassword);
+    }
+
+    private Usuario obterUsuarioLogado(String email) throws Exception {
+        String content = new String(Files.readAllBytes(Paths.get("registrationData.json")));
+        JSONObject jsonObject = new JSONObject(content);
+
+        if (jsonObject.getString("email").equals(email)) {
+            return new Jogador(
+                    jsonObject.getString("nome"),
+                    email,
+                    new CarrinhoDeCompras(),
+                    new Biblioteca()
+            );
+        }
+        return null;
     }
 
     public static void main(String[] args) {

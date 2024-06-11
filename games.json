@@ -1,0 +1,16 @@
+[
+  {
+    "titulo": "Portal",
+    "desenvolvedor": "Estúdio A",
+    "ano": 2021,
+    "valor": 59.99,
+    "categorias": ["Ação", "Aventura"]
+  },
+  {
+    "titulo": "Tibia",
+    "desenvolvedor": "Estúdio B",
+    "ano": 2020,
+    "valor": 49.99,
+    "categorias": ["RPG", "Fantasia"]
+  }
+]

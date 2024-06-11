@@ -1,56 +1,68 @@
 package screens;
 
+import org.json.JSONObject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class LoginScreen extends JFrame {
+    private JTextField emailField;
+    private JPasswordField passwordField;
+
     public LoginScreen() {
-        // Configuração do JFrame
         setTitle("Tela de Login");
-        setSize(300, 500);
-        setLayout(null);
+        setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new GridBagLayout());
 
-        // Adicionando a imagem local
-        ImageIcon imageIcon = new ImageIcon("assets/images/Steam_icon_logo.svg");
-        JLabel imageLabel = new JLabel(imageIcon);
-        imageLabel.setBounds(50, 20, 200, 50); // Ajuste as dimensões conforme necessário
-        add(imageLabel);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(4, 4, 4, 4);
 
-        // Criação dos labels
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(50, 100, 80, 25);
-        add(emailLabel);
+        // Campo para email
+        add(new JLabel("Email:"), gbc);
+        emailField = new JTextField(20);
+        add(emailField, gbc);
 
-        JLabel passwordLabel = new JLabel("Senha:");
-        passwordLabel.setBounds(50, 150, 80, 25);
-        add(passwordLabel);
+        // Campo para senha
+        add(new JLabel("Senha:"), gbc);
+        passwordField = new JPasswordField(20);
+        add(passwordField, gbc);
 
-        // Criação dos campos de texto
-        JTextField emailTextField = new JTextField();
-        emailTextField.setBounds(150, 100, 100, 25);
-        add(emailTextField);
-
-        JPasswordField passwordField = new JPasswordField();
-        passwordField.setBounds(150, 150, 100, 25);
-        add(passwordField);
-
-        // Criação do texto clicável para cadastro
-        JLabel registerLabel = new JLabel("Cadastre-se");
-        registerLabel.setBounds(150, 200, 100, 25);
-        registerLabel.setForeground(Color.BLUE.darker());
-        registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        registerLabel.addMouseListener(new MouseAdapter() {
+        // Botão de login
+        JButton loginButton = new JButton("Login");
+        loginButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                new RegistrationScreen();
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (validateCredentials(emailField.getText(), new String(passwordField.getPassword()))) {
+                        JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
+                        // Aqui redireciona pra screeen principal
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Email ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erro ao verificar as credenciais.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
-        add(registerLabel);
+        add(loginButton, gbc);
 
-        // Torna a tela visível
         setVisible(true);
+    }
+
+    private boolean validateCredentials(String email, String password) throws Exception {
+        String content = new String(Files.readAllBytes(Paths.get("registrationData.json")));
+        JSONObject jsonObject = new JSONObject(content);
+
+        String storedEmail = jsonObject.getString("email");
+        String storedPassword = jsonObject.getString("password");
+
+        return email.equals(storedEmail) && password.equals(storedPassword);
     }
 
     public static void main(String[] args) {

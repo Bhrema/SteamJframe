@@ -1,6 +1,7 @@
 package screens;
 
 import org.json.JSONObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -40,7 +41,7 @@ public class LoginScreen extends JFrame {
                 try {
                     if (validateCredentials(emailField.getText(), new String(passwordField.getPassword()))) {
                         JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
-                        // Aqui redireciona pra screeen principal
+                        // Aqui você pode redirecionar o usuário para a próxima tela após o login bem-sucedido
                     } else {
                         JOptionPane.showMessageDialog(null, "Email ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
@@ -51,6 +52,19 @@ public class LoginScreen extends JFrame {
             }
         });
         add(loginButton, gbc);
+
+        // Texto clicável "Cadastre-se"
+        JLabel registerLabel = new JLabel("Cadastre-se");
+        registerLabel.setForeground(Color.BLUE.darker());
+        registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        registerLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Abre a tela de cadastro
+                new RegistrationScreen().setVisible(true);
+            }
+        });
+        add(registerLabel, gbc);
 
         setVisible(true);
     }

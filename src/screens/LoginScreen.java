@@ -41,7 +41,7 @@ public class LoginScreen extends JFrame {
                 try {
                     if (validateCredentials(emailField.getText(), new String(passwordField.getPassword()))) {
                         JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
-                        // Aqui você pode redirecionar o usuário para a próxima tela após o login bem-sucedido
+                        new GameShowcase().setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Email ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }

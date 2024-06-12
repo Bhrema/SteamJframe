@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="nome-do-seu-projeto" />
+        <module name="Jframe" />
       </profile>
     </annotationProcessing>
   </component>

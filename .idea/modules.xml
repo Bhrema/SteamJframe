@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Jframe.iml" filepath="$PROJECT_DIR$/Jframe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SteamJframe-master(1).iml" filepath="$PROJECT_DIR$/.idea/SteamJframe-master(1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/SteamJframe-master/nome-do-seu-projeto.iml" filepath="$PROJECT_DIR$/SteamJframe-master/nome-do-seu-projeto.iml" />
     </modules>
   </component>
 </project>
